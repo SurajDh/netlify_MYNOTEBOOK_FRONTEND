@@ -60,7 +60,7 @@ const Navbar = () => {
                 <Link className="btn btn-primary mx-1" to="/signup" role="button">Signup</Link>
               </div> : <>
                  <span>
-                <img className='mx-1' src={profileicon} alt="profileIcon" style={{"width":"2.4rem","height":"2.2rem%"}} />
+                <img className='mx-1' src={profileicon} alt="profileIcon" style={{"width":"1.9rem","height":"1.6rem%"}} />
                 <i>
                   Welcome {username}
                   </i>

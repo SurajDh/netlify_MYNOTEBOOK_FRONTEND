@@ -12,6 +12,8 @@ import NoteState from './context/notes/NoteState';
 import Alert from './components/Alert';
 import Login from './components/Login';
 import Signup from './components/Signup';
+import ViewNote from './components/ViewNote';
+import Noteitem from './components/Noteitem';
 
 function App() {
 
@@ -40,6 +42,7 @@ function App() {
               <Route exact path="/About" element={<About />}/>
               <Route exact path="/login" element={<Login showAlert={showAlert}/>}/>
               <Route exact path="/signup" element={<Signup showAlert={showAlert}/>}/>
+              <Route exact path="/viewnote" element={<ViewNote showAlert={showAlert}/>}/>
             </Routes>
           </div>
         </Router>

@@ -41,7 +41,7 @@ const Signup = (props) => {
     }
 
     return (
-        <div>
+        <div className='container'>
             <h2>Create an account</h2>
             <form onSubmit={handleSubmit} className='mt-4'>
                 <div className="mb-3">

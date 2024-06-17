@@ -21,7 +21,7 @@ const Notes = (props) => {
             navigate("/login");
         }// eslint-disable-next-line
     }, [])
-    
+
     const onChange = (e) => {
         setNote({ ...note, [e.target.name]: e.target.value });
     }
@@ -67,7 +67,7 @@ const Notes = (props) => {
                                 </div>
                                 <div className="form-group my-3">
                                     <label htmlFor="description">Description</label>
-                                    <textarea  rows={3} className="form-control" id="edescription" name='edescription' value={note.edescription} placeholder="Description" onChange={onChange} minLength={5} required />
+                                    <textarea rows={3} className="form-control" id="edescription" name='edescription' value={note.edescription} placeholder="Description" onChange={onChange} minLength={5} required />
                                 </div>
 
                                 <div className="form-group my-3">
@@ -75,8 +75,6 @@ const Notes = (props) => {
                                     <input type="text" className="form-control" id="etag" name='etag' value={note.etag} placeholder="Tag" onChange={onChange} />
                                 </div>
                             </form>
-
-
 
                         </div>
                         <div className="modal-footer">
@@ -87,14 +85,13 @@ const Notes = (props) => {
                 </div>
             </div>
 
-
-
             <div className="row my-3">
                 <h2>Your Notes : {notes.length}</h2>
                 <div className='container mx-2'>
                     {notes.length === 0 && "No notes to display"}
                 </div>
                 {notes.map((note) => {
+        
                     return <Noteitem key={note._id} updateNote={updateNote} showAlert={props.showAlert} note={note} />
                 })
                 }
