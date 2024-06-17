@@ -62,7 +62,7 @@ const Navbar = () => {
                  <span>
                 <img className='mx-1' src={profileicon} alt="profileIcon" style={{"width":"1.9rem","height":"1.6rem%"}} />
                 <i>
-                  Welcome {username}
+                  Welcome {username?username.slice(0,20):"Guest"}{username.length > 20 ? "..." : ""}
                   </i>
                 <button className="btn btn-primary mx-3" onClick={handleLogout} >Logout</button>
                   </span> 

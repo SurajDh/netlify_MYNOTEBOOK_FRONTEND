@@ -11,7 +11,7 @@ const ViewNote = (props) => {
     }
 
     const handleCopyClick=()=>{
-        navigator.clipboard.writeText(`Title : ${title} \n Description : ${description} \n Tag : ${tag}`);
+        navigator.clipboard.writeText(`Title : ${title}\n\n\nDescription : ${description}\n\n\nTag : ${tag}`);
         props.showAlert("Copied to clipboard","success");
     }
 
