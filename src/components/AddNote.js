@@ -2,7 +2,7 @@ import React from 'react'
 import { useContext, useState } from 'react';
 import noteContext from '../context/notes/noteContext';
 
-const AddNote = (props) => {
+const AddNote = ({showAlert,toSentenceCase}) => {
 
 
 
@@ -16,11 +16,10 @@ const AddNote = (props) => {
   }
   const handleClick = (e) => {
     e.preventDefault();
-    addNote(note.title,note.description,note.tag);
+    addNote(toSentenceCase(note.title),toSentenceCase(note.description),toSentenceCase(note.tag?note.tag:"General"));
     setNote({ "title": "", "description": "", "tag": "" });
-    props.showAlert("Note Added Successfully","success");
+    showAlert("Note Added Successfully","success");
   }
-
   return (
     <div>
       <div className="container my-3">

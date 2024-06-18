@@ -3,6 +3,7 @@ import noteContext from '../context/notes/noteContext';
 import Noteitem from './Noteitem';
 import AddNote from './AddNote';
 import { useNavigate } from 'react-router-dom';
+import Filtertag from './FilterTag'
 
 const Notes = (props) => {
 
@@ -11,6 +12,7 @@ const Notes = (props) => {
     const { notes, getNotes, editNote } = context;
 
     const [note, setNote] = useState({ "id": "", "etitle": "", "edescription": "", "etag": "" })
+
 
 
     useEffect(() => {
@@ -29,7 +31,7 @@ const Notes = (props) => {
     const handleClick = (e) => {
 
         refClose.current.click();
-        editNote(note.id, note.etitle, note.edescription, note.etag);
+        editNote(note.id, toSentenceCase(note.etitle), toSentenceCase(note.edescription), toSentenceCase(note.etag));
         props.showAlert("Updated Successfully", "success");
     }
 
@@ -42,9 +44,26 @@ const Notes = (props) => {
 
     const ref = useRef(null)
     const refClose = useRef(null)
+
+    const [tagValue, setTagValue] = useState('All');
+
+    const selectedTagVal = (tagvalue) => {
+        setTagValue(tagvalue);
+    }
+
+    function toSentenceCase(str) {
+        return str.replace(
+          /\w\S*/g,
+          function(txt) {
+            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+          }
+        );
+      }
+
+
     return (
         <>
-            <AddNote showAlert={props.showAlert} />
+            <AddNote showAlert={props.showAlert} toSentenceCase={toSentenceCase} />
 
 
             <button ref={ref} type="button" className="btn btn-primary d-none" data-bs-toggle="modal" d-none="" data-bs-target="#exampleModal"></button>
@@ -86,16 +105,38 @@ const Notes = (props) => {
             </div>
 
             <div className="row my-3">
-                <h2>Your Notes : {notes.length}</h2>
+                <span className='d-flex justify-content-between'>
+                    <h2>Your Notes : {notes.length}</h2>
+                    <Filtertag notes={notes} selectedTagVal={selectedTagVal} />
+
+
+                </span>
                 <div className='container mx-2'>
                     {notes.length === 0 && "No notes to display"}
                 </div>
-                {notes.map((note) => {
-        
-                    return <Noteitem key={note._id} updateNote={updateNote} showAlert={props.showAlert} note={note} />
-                })
+                {tagValue === 'All' ?
+                    notes.map((note) => {
+                        return <Noteitem key={note._id} updateNote={updateNote} showAlert={props.showAlert} note={note} />
+                    }) :
+                    notes
+                        .filter((note) => note.tag === tagValue)
+                        .map((note) => {
+                            return <Noteitem key={note._id} updateNote={updateNote} showAlert={props.showAlert} note={note} />
+                        })
                 }
             </div>
+
+
+
+
+
+
+
+
+
+
+
+
         </>
     )
 }

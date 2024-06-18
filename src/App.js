@@ -13,7 +13,7 @@ import Alert from './components/Alert';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import ViewNote from './components/ViewNote';
-import Noteitem from './components/Noteitem';
+
 
 function App() {
 
