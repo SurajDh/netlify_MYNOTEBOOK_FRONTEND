@@ -31,7 +31,7 @@ const Notes = (props) => {
     const handleClick = (e) => {
 
         refClose.current.click();
-        editNote(note.id, toSentenceCase(note.etitle), toSentenceCase(note.edescription), toSentenceCase(note.etag));
+        editNote(note.id, toSentenceCase(note.etitle),(note.edescription), toSentenceCase(note.etag));
         props.showAlert("Updated Successfully", "success");
     }
 

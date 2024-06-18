@@ -16,7 +16,7 @@ const AddNote = ({showAlert,toSentenceCase}) => {
   }
   const handleClick = (e) => {
     e.preventDefault();
-    addNote(toSentenceCase(note.title),toSentenceCase(note.description),toSentenceCase(note.tag?note.tag:"General"));
+    addNote(toSentenceCase(note.title),(note.description),toSentenceCase(note.tag?note.tag:"General"));
     setNote({ "title": "", "description": "", "tag": "" });
     showAlert("Note Added Successfully","success");
   }
