@@ -30,11 +30,13 @@ function App() {
     }, 3000);
 }
 
+const [username, setUsername] = useState('Guest');
   return (
     <>
       <NoteState>
         <Router>
-          <Navbar/>
+          <Navbar username={username} setUsername={setUsername}/>
+
           <Alert alert={alert}/>
           <div className="container">
             <Routes>
@@ -44,7 +46,7 @@ function App() {
               <Route exact path="/login" element={<Login showAlert={showAlert}/>}/>
               <Route exact path="/signup" element={<Signup showAlert={showAlert}/>}/>
               <Route exact path="/viewnote" element={<ViewNote showAlert={showAlert}/>}/>
-              <Route exact path="/profile" element={<Profile showAlert={showAlert}/>}/>
+              <Route exact path="/profile" element={<Profile showAlert={showAlert} setUsername={setUsername}/>}/>
             </Routes>
           </div>
         </Router>

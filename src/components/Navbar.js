@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {
   Link,
   useLocation,
@@ -7,19 +7,15 @@ import {
 
 import profileicon from '../icons/user.png'
 
-const Navbar = () => {
+const Navbar = ({username,setUsername}) => {
 
   let location = useLocation();
-
   let navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     navigate("/login");  
   }
-
-  const [username, setName] = useState('');
-
 
   useEffect(()=>{
     const getName = async () => {
@@ -31,7 +27,7 @@ const Navbar = () => {
       });
   
       const json = await response.json();
-      setName(json.name);
+      setUsername(json.name);
     }
 
     getName();

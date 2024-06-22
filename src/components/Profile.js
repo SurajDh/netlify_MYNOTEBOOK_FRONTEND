@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import editicon from '../icons/edit.png'
 
-export default function Profile(props) {
+export default function Profile({showAlert,username,setUsername}) {
 
   const [credentials, setCredentials] = useState({ "newname": "", "email": "", "password": "", "newpassword": "", "confirmpassword": "" });
   const [isEditing, setIsEditing] = useState(false);
@@ -21,9 +21,10 @@ export default function Profile(props) {
     if(json.success){
       setIsEditing(false);
       setCredentials({ ...credentials, password: '', newpassword: '', confirmpassword: '' });
-      props.showAlert("Details Updated","success");
+      setUsername(newname);
+      showAlert("Details Updated","success");
     }else{
-      props.showAlert("Invalid Credentials", "danger");
+      showAlert("Invalid Credentials", "danger");
     }
   }
 
