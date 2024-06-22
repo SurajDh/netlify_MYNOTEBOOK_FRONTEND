@@ -12,6 +12,7 @@ const Signup = (props) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const { name, email, password } = credentials;
+        
         const response = await fetch(`${process.env.REACT_APP_LOCALHOST}/api/auth/createuser`, {
             method: "POST",
             headers: {

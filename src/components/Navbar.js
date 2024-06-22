@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Link,
   useLocation,
@@ -15,23 +15,36 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    navigate("/login");
+    navigate("/login");  
   }
 
   const [username, setName] = useState('');
 
-  const getName = async () => {
-    const response = await fetch(`${process.env.REACT_APP_LOCALHOST}/api/auth/getuser`, {
-      method: "POST",
-      headers: {
-        "auth-token": localStorage.getItem('token'),
-      }
-    });
 
-    const json = await response.json();
-    setName(json.name);
-  }
-  getName();
+  useEffect(()=>{
+    const getName = async () => {
+      const response = await fetch(`${process.env.REACT_APP_LOCALHOST}/api/auth/getuser`, {
+        method: "POST",
+        headers: {
+          "auth-token": localStorage.getItem('token'),
+        }
+      });
+  
+      const json = await response.json();
+      setName(json.name);
+    }
+
+    getName();
+  },[]);
+
+
+
+
+
+const handleProfileClick=()=>{
+  navigate("/profile");
+}
+
 
 
   return (
@@ -59,15 +72,17 @@ const Navbar = () => {
                 <Link className="btn btn-primary mx-1" to="/login" role="button">LogIn</Link>
                 <Link className="btn btn-primary mx-1" to="/signup" role="button">Signup</Link>
               </div> : <>
-                 <span>
-                <img className='mx-1' src={profileicon} alt="profileIcon" style={{"width":"1.9rem","height":"1.6rem%"}} />
-                <i>
-                  Welcome {username?username.slice(0,20):"Guest"}
+                <span className='profileIconName'>
+                  <span onClick={handleProfileClick}>
+                  <img className='mx-1' src={profileicon} alt="profileIcon" style={{ "width": "1.9rem", "height": "1.6rem%" }} />
+                  <i>
+                    Welcome {username ? username.slice(0, 20) : "Guest"}{username.length>19?"...":""}
                   </i>
-                <button className="btn btn-primary mx-3" onClick={handleLogout} >Logout</button>
-                  </span> 
+                  </span>
+                  <button className="btn btn-primary mx-3" onClick={handleLogout} >Logout</button>
+                </span>
               </>}
-   
+
             </form>
           </div>
         </div>
