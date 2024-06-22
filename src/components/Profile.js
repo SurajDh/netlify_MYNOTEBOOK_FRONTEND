@@ -9,8 +9,7 @@ export default function Profile(props) {
   const submitvals = async (e) => {
     e.preventDefault();
     const { newname, email, password, newpassword } = credentials;
-    // const response = await fetch(`${process.env.REACT_APP_LOCALHOST}/api/auth/changedetails`, {
-    const response = await fetch(`http://localhost:5000/api/auth/changedetails`, {
+    const response = await fetch(`${process.env.REACT_APP_LOCALHOST}/api/auth/changedetails`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
