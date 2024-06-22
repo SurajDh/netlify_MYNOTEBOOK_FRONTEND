@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   Link,
   useLocation,
@@ -7,17 +7,18 @@ import {
 
 import profileicon from '../icons/user.png'
 
-const Navbar = ({username,setUsername}) => {
+const Navbar = ({username="",setUsername}) => {
 
   let location = useLocation();
   let navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    setUsername('');
     navigate("/login");  
   }
 
-  useEffect(()=>{
+ 
     const getName = async () => {
       const response = await fetch(`${process.env.REACT_APP_LOCALHOST}/api/auth/getuser`, {
         method: "POST",
@@ -31,9 +32,6 @@ const Navbar = ({username,setUsername}) => {
     }
 
     getName();
-  },[]);
-
-
 
 
 
@@ -65,7 +63,7 @@ const handleProfileClick=()=>{
             <form className="d-flex" >
 
               {!localStorage.getItem('token') ? <div>
-                <Link className="btn btn-primary mx-1" to="/login" role="button">LogIn</Link>
+                <Link className="btn btn-primary mx-1" to="/login" role="button" >LogIn</Link>
                 <Link className="btn btn-primary mx-1" to="/signup" role="button">Signup</Link>
               </div> : <>
                 <span className='profileIconName'>

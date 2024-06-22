@@ -30,7 +30,7 @@ function App() {
     }, 3000);
 }
 
-const [username, setUsername] = useState('Guest');
+const [username, setUsername] = useState('');
   return (
     <>
       <NoteState>
