@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import {
   Link,
   useLocation,
@@ -8,27 +8,27 @@ import profileicon from '../icons/user.png'
 
 
 
-const Navbar = ({username="",setUsername}) => {
+const Navbar = ({ username = "", setUsername }) => {
 
 
-  
-  const [isCollapsed,setIsCollapsed]=useState('collapse');
 
-  const handleClick=()=>{
-    if(isCollapsed==="collapse") setIsCollapsed('collapse-show');
+  const [isCollapsed, setIsCollapsed] = useState('collapse');
+
+  const handleClick = () => {
+    if (isCollapsed === "collapse") setIsCollapsed('collapse-show');
     else setIsCollapsed('collapse');
   }
 
   let location = useLocation();
   let navigate = useNavigate();
-  
+
   const handleLogout = () => {
     localStorage.removeItem('token');
     setUsername('');
-    navigate("/login");  
+    navigate("/login");
   }
-  
-  
+
+
   const getName = async () => {
     const response = await fetch(`${process.env.REACT_APP_LOCALHOST}/api/auth/getuser`, {
       method: "POST",
@@ -36,21 +36,21 @@ const Navbar = ({username="",setUsername}) => {
         "auth-token": localStorage.getItem('token'),
       }
     });
-    
+
     const json = await response.json();
     setUsername(json.name);
   }
-  
+
   getName();
-  
-  
-  
-  const handleProfileClick=()=>{
+
+
+
+  const handleProfileClick = () => {
     navigate("/profile");
   }
-  
-  
-  
+
+
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -59,8 +59,8 @@ const Navbar = ({username="",setUsername}) => {
           <button className="navbar-toggler" onClick={handleClick} type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className={`${isCollapsed} navbar-collapse`} id="navbarSupportedContent">
-            <div onClick={handleClick}>
+          <div className={`${isCollapsed} navbar-collapse `} onClick={handleClick} id="navbarSupportedContent">
+
 
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
@@ -80,17 +80,17 @@ const Navbar = ({username="",setUsername}) => {
               </div> : <>
                 <span className='profileIconName'>
                   <span onClick={handleProfileClick}>
-                  <img className='mx-1' src={profileicon} alt="profileIcon" style={{ "width": "1.9rem", "height": "1.6rem%" }} />
-                  <i>
-                    Welcome {username ? username.slice(0, 20) : "Guest"}{username.length>19?"...":""}
-                  </i>
+                    <img className='mx-1' src={profileicon} alt="profileIcon" style={{ "width": "1.9rem", "height": "1.6rem%" }} />
+                    <i>
+                      Welcome {username ? username.slice(0, 20) : "Guest"}{username.length > 19 ? "..." : ""}
+                    </i>
                   </span>
                   <button className="btn btn-primary mx-3" onClick={handleLogout} >Logout</button>
                 </span>
               </>}
 
             </form>
-            </div>
+
           </div>
         </div>
       </nav>
