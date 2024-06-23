@@ -89,7 +89,7 @@ export default function Profile({showAlert,username,setUsername}) {
               isEditing ? <input type="text" value={credentials.newname} onChange={(e) => onChange(e, 'newname')}
               />
                 :
-                <p className='username my-2 mx-2'>{credentials.newname}</p>
+                <p className='username my-2 mx-2 text-break'>{credentials.newname}</p>
             }
             {
               isEditing ?

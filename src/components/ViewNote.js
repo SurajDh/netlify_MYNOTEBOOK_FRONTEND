@@ -18,13 +18,18 @@ const ViewNote = (props) => {
 
     return (
         <>
-            <div className=" container view-note-container">
+            <div className="container view-note-container">
+               
+<section>
+
                 <i>
                     <span className="view-note-tag">{tag}</span>
                 </i>
                 <h1 className="view-note-title">{title}</h1>
                 <hr />
-                <section className="view-note-description">{description}</section>
+                <article className="view-note-description text-break">{description}</article>
+</section>
+                            
                 <div className="view-note-actions"><br /><br />
             <button className="btn-copy btn btn-primary mx-1 my-1" onClick={handleCopyClick} style={{ marginLeft: 'auto' }}>Copy Note</button>
             </div>
