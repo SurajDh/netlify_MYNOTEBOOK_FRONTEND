@@ -1,55 +1,67 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {
   Link,
   useLocation,
   useNavigate
 } from "react-router-dom";
-
 import profileicon from '../icons/user.png'
+
+
 
 const Navbar = ({username="",setUsername}) => {
 
+
+  
+  const [isCollapsed,setIsCollapsed]=useState('collapse');
+
+  const handleClick=()=>{
+    if(isCollapsed==="collapse") setIsCollapsed('collapse-show');
+    else setIsCollapsed('collapse');
+  }
+
   let location = useLocation();
   let navigate = useNavigate();
-
+  
   const handleLogout = () => {
     localStorage.removeItem('token');
     setUsername('');
     navigate("/login");  
   }
-
- 
-    const getName = async () => {
-      const response = await fetch(`${process.env.REACT_APP_LOCALHOST}/api/auth/getuser`, {
-        method: "POST",
-        headers: {
-          "auth-token": localStorage.getItem('token'),
-        }
-      });
   
-      const json = await response.json();
-      setUsername(json.name);
-    }
-
-    getName();
-
-
-
-const handleProfileClick=()=>{
-  navigate("/profile");
-}
-
-
-
+  
+  const getName = async () => {
+    const response = await fetch(`${process.env.REACT_APP_LOCALHOST}/api/auth/getuser`, {
+      method: "POST",
+      headers: {
+        "auth-token": localStorage.getItem('token'),
+      }
+    });
+    
+    const json = await response.json();
+    setUsername(json.name);
+  }
+  
+  getName();
+  
+  
+  
+  const handleProfileClick=()=>{
+    navigate("/profile");
+  }
+  
+  
+  
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
           <Link className="navbar-brand" to="/">MyNoteBook</Link>
-          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <button className="navbar-toggler" onClick={handleClick} type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <div className={`${isCollapsed} navbar-collapse`} id="navbarSupportedContent">
+            <div onClick={handleClick}>
+
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <Link className={`nav-link ${location.pathname === "/" ? "active" : ""}`} aria-current="page" to="/">Home</Link>
@@ -78,6 +90,7 @@ const handleProfileClick=()=>{
               </>}
 
             </form>
+            </div>
           </div>
         </div>
       </nav>
